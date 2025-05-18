@@ -21,7 +21,6 @@ namespace fs = std::filesystem;
 
 class Lspp {
   bool m_dots, m_list;
-  //size_t names_index;
 
   fs::path dir;
   std::vector<fs::directory_entry> entries;

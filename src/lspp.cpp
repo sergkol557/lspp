@@ -282,7 +282,6 @@ void Lspp::list_detailed(const std::vector<fs::path>& paths) {
 
     std::cout << std::setw(8) << st.st_size << ' ';
 
-    //char timebuf[20];
     std::array<char, 20> timebuf;
     strftime(timebuf.data(), sizeof(timebuf), "%b %d %H:%M", localtime(&st.st_mtime));
     std::cout << timebuf.data() << ' ';
