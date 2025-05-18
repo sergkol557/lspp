@@ -192,7 +192,8 @@ void Lspp::format(){
 
   if(names.empty()) return;
 
-  int term_width = get_terminal_width() - 10;
+  int term_width = get_terminal_width() - 15;
+  //int term_width = get_terminal_width();
   size_t total = names.size();
 
   std::vector<size_t> lengths(total);

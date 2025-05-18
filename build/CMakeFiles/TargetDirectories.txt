@@ -1,0 +1,8 @@
+/home/marcos/Works/REPOS/lspp/FILES_ADD/lspp/build/CMakeFiles/ls++.dir
+/home/marcos/Works/REPOS/lspp/FILES_ADD/lspp/build/CMakeFiles/uninstall.dir
+/home/marcos/Works/REPOS/lspp/FILES_ADD/lspp/build/CMakeFiles/edit_cache.dir
+/home/marcos/Works/REPOS/lspp/FILES_ADD/lspp/build/CMakeFiles/rebuild_cache.dir
+/home/marcos/Works/REPOS/lspp/FILES_ADD/lspp/build/CMakeFiles/list_install_components.dir
+/home/marcos/Works/REPOS/lspp/FILES_ADD/lspp/build/CMakeFiles/install.dir
+/home/marcos/Works/REPOS/lspp/FILES_ADD/lspp/build/CMakeFiles/install/local.dir
+/home/marcos/Works/REPOS/lspp/FILES_ADD/lspp/build/CMakeFiles/install/strip.dir
