@@ -10,6 +10,21 @@
 
 ---
 
+## Quick install for Ubuntu
+```bash
+sudo wget -q4 \
+  https://github.com/terroo/lspp/releases/download/v0.0.2/ls++ \
+  -O /usr/local/bin/ls++ && \
+  sudo chmod +x /usr/local/bin/ls++
+```
+
+Run:
+```bash
+ls++ --version
+```
+
+---
+
 ## Build and install
 ```bash
 cmake -B build .
