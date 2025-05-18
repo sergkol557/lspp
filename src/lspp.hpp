@@ -25,7 +25,7 @@ class Lspp {
   fs::path dir;
   std::vector<fs::directory_entry> entries;
   std::vector<std::string> targets;
-  std::vector<std::string> names;
+  //std::vector<std::string> names;
   std::vector<fs::path> full_paths;
 
   void show(), show_targets(), print(), help(), 
