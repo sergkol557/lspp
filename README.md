@@ -27,6 +27,8 @@ ls++ --version
 
 ## Build and install
 ```bash
+git clone https://github.com/terroo/lspp
+cd lspp
 cmake -B build .
 cmake --build build
 sudo cmake --install build
