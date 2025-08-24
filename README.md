@@ -77,6 +77,17 @@ cmake --build build
 sudo cmake --install build
 ```
 
+#### Using VS Code:
+
+If you're using Visual Studio Code, you can use the built-in tasks:
+
+- `Ctrl+Shift+P` → `Tasks: Run Task` → `Build ls++`
+- `Ctrl+Shift+P` → `Tasks: Run Task` → `Install ls++`
+- `Ctrl+Shift+P` → `Tasks: Run Task` → `Clean Build ls++`
+- `Ctrl+Shift+P` → `Tasks: Run Task` → `Uninstall ls++`
+
+You can also configure build tasks to run automatically with `Ctrl+Shift+B`.
+
 ---
 
 ## Usage
