@@ -12,7 +12,7 @@ ArgumentParser::ArgumentParser() {
     // Initialize valid short options
     m_valid_short_options = {
         'a', 'A', 'b', 'B', 'c', 'C', 'd', 'f', 'F', 'g', 'G', 'h', 'H',
-        'i', 'I', 'k', 'l', 'L', 'm', 'n', 'N', 'o', 'p', 'P', 'q', 'Q',
+        'i', 'I', 'j', 'k', 'l', 'L', 'm', 'n', 'N', 'o', 'p', 'P', 'q', 'Q',
         'r', 'R', 's', 'S', 't', 'T', 'u', 'U', 'v', 'w', 'x', 'X', 'Z', '1'
     };
     
@@ -121,9 +121,8 @@ void ArgumentParser::parseShortOption(const std::string& arg, LsOptions& options
             case 'i':
                 options.show_inode = true;
                 break;
-            case 'I':
-                // Ignore pattern - would need next argument
-                // For now, skip this implementation
+            case 'j':
+                options.group_directories_first = true;
                 break;
             case 'k':
                 options.block_size_1024 = true;
@@ -400,7 +399,7 @@ void ArgumentParser::printHelp() const {
     std::cout << "                               vertical -C\n";
     std::cout << "      --full-time            like -l --time-style=full-iso\n";
     std::cout << "  -g                         like -l, but do not list owner\n";
-    std::cout << "      --group-directories-first\n";
+    std::cout << "  -j, --group-directories-first\n";
     std::cout << "                             group directories before files\n";
     std::cout << "  -G, --no-group             in a long listing, don't print group names\n";
     std::cout << "  -h, --human-readable       with -l and/or -s, print human readable sizes\n";
