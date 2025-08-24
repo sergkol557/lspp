@@ -5,12 +5,29 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -ffast-math")
 
 project(Lspp
   LANGUAGES CXX
-  VERSION 0.0.1
+  VERSION 1.0.0
 )
 
-file(GLOB LSPP_SRC "src/*.cpp")
+# Define source files explicitly for better control
+set(LSPP_SOURCES
+    src/main.cpp
+    src/lspp.cpp
+    src/ArgumentParser.cpp
+    src/FileOperations.cpp
+    src/DisplayFormatter.cpp
+    src/IconProvider.cpp
+)
 
-add_executable(ls++ ${LSPP_SRC})
+add_executable(ls++ ${LSPP_SOURCES})
+
+# Add include directory for headers
+target_include_directories(ls++ PRIVATE src)
+
+# Link required libraries
+find_library(PTHREAD_LIB pthread)
+if(PTHREAD_LIB)
+    target_link_libraries(ls++ ${PTHREAD_LIB})
+endif()
 
 install(TARGETS ls++ DESTINATION bin)
 

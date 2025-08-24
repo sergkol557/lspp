@@ -1,0 +1,11 @@
+[38;2;241;81;126mﭱ ArgumentParser.cpp[m
+[38;2;173;151;185m≡ ArgumentParser.hpp[m
+[38;2;241;81;126mﭱ DisplayFormatter.cpp[m
+[38;2;173;151;185m≡ DisplayFormatter.hpp[m
+[38;2;241;81;126mﭱ FileOperations.cpp[m
+[38;2;173;151;185m≡ FileOperations.hpp[m
+[38;2;241;81;126mﭱ IconProvider.cpp[m
+[38;2;173;151;185m≡ IconProvider.hpp[m
+[38;2;241;81;126mﭱ lspp.cpp[m
+[38;2;173;151;185m≡ lspp.hpp[m
+[38;2;241;81;126mﭱ main.cpp[m

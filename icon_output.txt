@@ -1,0 +1,7 @@
+Testing Unicode icons:
+Directory: \uf74a
+File: \uf723
+Executable: \uf713
+Symlink: \uf838
+C++ file: \ufb71
+Python file: \uf81f
