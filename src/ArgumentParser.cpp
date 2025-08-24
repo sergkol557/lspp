@@ -26,7 +26,7 @@ ArgumentParser::ArgumentParser() {
         "numeric-uid-gid", "no-dereference", "indicator-style", "hide-control-chars",
         "show-control-chars", "quote-name", "quoting-style", "reverse", "recursive",
         "size", "sort", "time", "time-style", "tabsize", "time", "version",
-        "width", "context", "help", "version", "color", "hyperlink", "zero"
+        "width", "context", "help", "version", "color", "hyperlink", "zero", "long"
     };
 }
 
@@ -278,6 +278,8 @@ void ArgumentParser::parseLongOption(const std::string& arg, LsOptions& options)
         options.block_size_1024 = true;
     } else if (option == "literal") {
         options.literal_names = true;
+    } else if (option == "long") {
+        options.format = ListFormat::LONG;
     } else if (option == "no-dereference") {
         options.no_dereference = true;
     } else if (option == "no-group") {
@@ -409,7 +411,7 @@ void ArgumentParser::printHelp() const {
     std::cout << "  -i, --inode                print the index number of each file\n";
     std::cout << "  -I, --ignore=PATTERN       do not list implied entries matching shell PATTERN\n";
     std::cout << "  -k, --kibibytes            default to 1024-byte blocks for disk usage\n";
-    std::cout << "  -l                         use a long listing format\n";
+    std::cout << "  -l, --long                 use a long listing format\n";
     std::cout << "  -L, --dereference          when showing file information for a symbolic\n";
     std::cout << "                               link, show information for the file the link\n";
     std::cout << "                               references rather than for the link itself\n";
