@@ -94,7 +94,7 @@ You can also configure build tasks to run automatically with `Ctrl+Shift+B`.
 + Running in Current Directory/Folder
 + Running on Directory/Folder as argument and/or with multiple
 + Does not ignore entries starting with '.'
-+ Use a long listing format
++ Use a long listing format with colored permissions (green for read, yellow for write, red for execute)
 + Both: all with list
 
 ![Examples 01](assets/args.png) 
@@ -194,5 +194,19 @@ If you receive no output when running ls++:
 3. **Verify terminal compatibility**:
    - Try running ls++ in a different terminal emulator
    - Ensure your terminal supports Unicode characters
+
+### Colored permissions not displaying correctly
+
+If the colored permissions are not displaying correctly:
+
+1. **Ensure color support is enabled**:
+   - Run ls++ without the `--color=never` option
+   - Check that your terminal supports ANSI color codes
+
+2. **Test color support**:
+   ```bash
+   echo -e "\033[32mGreen\033[33mYellow\033[31mRed\033[m"
+   ```
+   If you see colored text, your terminal supports colors.
 
 

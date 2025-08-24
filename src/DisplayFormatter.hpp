@@ -29,6 +29,7 @@ private:
     std::string formatFileSize(off_t size, bool human_readable = false, bool si_units = false) const;
     std::string formatTime(const std::chrono::system_clock::time_point& time, const std::string& style = "locale") const;
     std::string formatPermissions(mode_t mode) const;
+    std::string formatColoredPermissions(mode_t mode) const;
     std::string formatInode(ino_t inode) const;
     std::string formatBlockSize(off_t size, const std::string& block_size = "1024") const;
     

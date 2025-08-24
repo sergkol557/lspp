@@ -71,7 +71,11 @@ void DisplayFormatter::displaySingleFileLong(const FileInfo& file, const LongFor
     }
     
     // File permissions
-    out << formatPermissions(file.mode) << " ";
+    if (m_options.use_color) {
+        out << formatColoredPermissions(file.mode) << " ";
+    } else {
+        out << formatPermissions(file.mode) << " ";
+    }
     
     // Number of hard links
     out << std::setw(widths.links_width) << std::right << file.hard_links << " ";
@@ -388,6 +392,71 @@ std::string DisplayFormatter::formatPermissions(mode_t mode) const {
     }
     
     return perms;
+}
+
+std::string DisplayFormatter::formatColoredPermissions(mode_t mode) const {
+    std::string perms(10, '-');
+    std::string result;
+    
+    // Color codes for permissions
+    const std::string GREEN = "\033[32m";   // Green for read
+    const std::string YELLOW = "\033[33m";  // Yellow for write
+    const std::string RED = "\033[31m";     // Red for execute
+    const std::string RESET = "\033[m";     // Reset color
+    
+    // File type (no color)
+    if (S_ISDIR(mode)) perms[0] = 'd';
+    else if (S_ISLNK(mode)) perms[0] = 'l';
+    else if (S_ISBLK(mode)) perms[0] = 'b';
+    else if (S_ISCHR(mode)) perms[0] = 'c';
+    else if (S_ISFIFO(mode)) perms[0] = 'p';
+    else if (S_ISSOCK(mode)) perms[0] = 's';
+    
+    // Owner permissions
+    perms[1] = (mode & S_IRUSR) ? 'r' : '-';
+    perms[2] = (mode & S_IWUSR) ? 'w' : '-';
+    perms[3] = (mode & S_IXUSR) ? 'x' : '-';
+    
+    // Group permissions
+    perms[4] = (mode & S_IRGRP) ? 'r' : '-';
+    perms[5] = (mode & S_IWGRP) ? 'w' : '-';
+    perms[6] = (mode & S_IXGRP) ? 'x' : '-';
+    
+    // Other permissions
+    perms[7] = (mode & S_IROTH) ? 'r' : '-';
+    perms[8] = (mode & S_IWOTH) ? 'w' : '-';
+    perms[9] = (mode & S_IXOTH) ? 'x' : '-';
+    
+    // Special bits
+    if (mode & S_ISUID) {
+        perms[3] = (mode & S_IXUSR) ? 's' : 'S';
+    }
+    if (mode & S_ISGID) {
+        perms[6] = (mode & S_IXGRP) ? 's' : 'S';
+    }
+    if (mode & S_ISVTX) {
+        perms[9] = (mode & S_IXOTH) ? 't' : 'T';
+    }
+    
+    // Apply colors to each character
+    result += perms[0]; // File type without color
+    
+    // Owner permissions
+    result += (perms[1] != '-') ? GREEN + perms[1] + RESET : std::string(1, perms[1]);
+    result += (perms[2] != '-') ? YELLOW + perms[2] + RESET : std::string(1, perms[2]);
+    result += (perms[3] != '-' && perms[3] != 'S') ? RED + perms[3] + RESET : std::string(1, perms[3]);
+    
+    // Group permissions
+    result += (perms[4] != '-') ? GREEN + perms[4] + RESET : std::string(1, perms[4]);
+    result += (perms[5] != '-') ? YELLOW + perms[5] + RESET : std::string(1, perms[5]);
+    result += (perms[6] != '-' && perms[6] != 'S') ? RED + perms[6] + RESET : std::string(1, perms[6]);
+    
+    // Other permissions
+    result += (perms[7] != '-') ? GREEN + perms[7] + RESET : std::string(1, perms[7]);
+    result += (perms[8] != '-') ? YELLOW + perms[8] + RESET : std::string(1, perms[8]);
+    result += (perms[9] != '-' && perms[9] != 'T') ? RED + perms[9] + RESET : std::string(1, perms[9]);
+    
+    return result;
 }
 
 std::string DisplayFormatter::getIconAndColor(const FileInfo& file) const {
