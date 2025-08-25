@@ -45,6 +45,7 @@ LsOptions ArgumentParser::parse(int argc, char** argv) {
         } else if (arg.substr(0, 2) == "--") {
             parseLongOption(arg, options);
         } else if (arg.length() > 1 && arg[0] == '-') {
+            // Handle combined short options like -la (equivalent to -l -a)
             size_t pos = 1;
             parseShortOption(arg, options, pos);
         } else {
@@ -72,6 +73,7 @@ LsOptions ArgumentParser::parse(int argc, char** argv) {
 }
 
 void ArgumentParser::parseShortOption(const std::string& arg, LsOptions& options, size_t& pos) {
+    // Process all characters in the argument starting from position pos
     while (pos < arg.length()) {
         char opt = arg[pos++];
         
