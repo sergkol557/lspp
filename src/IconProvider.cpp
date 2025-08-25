@@ -433,10 +433,16 @@ void IconProvider::initializeFilenameMap() {
         {"downloads", {"\uf6d0", "\033[38;2;100;200;255m"}},
         {"Music", {"\ufb2c", "\033[38;2;255;100;150m"}},
         {"music", {"\ufb2c", "\033[38;2;255;100;150m"}},
+        {"Audio", {"\ufb2c", "\033[38;2;255;100;150m"}},
+        {"audio", {"\ufb2c", "\033[38;2;255;100;150m"}},
         {"Pictures", {"\uf753", "\033[38;2;200;100;255m"}},
         {"pictures", {"\uf753", "\033[38;2;200;100;255m"}},
+        {"Photos", {"\uf753", "\033[38;2;200;100;255m"}},
+        {"photos", {"\uf753", "\033[38;2;200;100;255m"}},
         {"Videos", {"\uf72a", "\033[38;2;255;150;100m"}},
         {"videos", {"\uf72a", "\033[38;2;255;150;100m"}},
+        {"Movies", {"\uf72a", "\033[38;2;255;150;100m"}},
+        {"movies", {"\uf72a", "\033[38;2;255;150;100m"}},
         {"Public", {"\uf0ac", "\033[38;2;100;200;150m"}},
         {"public", {"\uf0ac", "\033[38;2;100;200;150m"}},
         {"Templates", {"\ufac6", "\033[38;2;150;200;100m"}},
@@ -472,6 +478,8 @@ std::string IconProvider::getIcon(const FileInfo& file) const {
 
 std::string IconProvider::getColorCode(const FileInfo& file) const {
     auto [icon, color] = getIconAndColor(file);
+}
+
     return m_color_enabled ? color : "";
 }
 
@@ -481,43 +489,53 @@ std::pair<std::string, std::string> IconProvider::getIconAndColor(const FileInfo
         // Check for special directory names
         const std::string& dirname = file.display_name.string();
         
+        // Convert dirname to lowercase for case-insensitive comparison
+        std::string lower_dirname = dirname;
+        std::transform(lower_dirname.begin(), lower_dirname.end(), lower_dirname.begin(), ::tolower);
+        
         // Check for special system folders
-        if (dirname == "Desktop" || dirname == "desktop") {
+        if (dirname == "Desktop" || dirname == "desktop" || lower_dirname == "desktop") {
             auto it = m_filename_map.find("Desktop");
             if (it != m_filename_map.end()) {
                 return it->second;
             }
-        } else if (dirname == "Documents" || dirname == "documents") {
+        } else if (dirname == "Documents" || dirname == "documents" || lower_dirname == "documents") {
             auto it = m_filename_map.find("Documents");
             if (it != m_filename_map.end()) {
                 return it->second;
             }
-        } else if (dirname == "Downloads" || dirname == "downloads") {
+        } else if (dirname == "Downloads" || dirname == "downloads" || lower_dirname == "downloads") {
             auto it = m_filename_map.find("Downloads");
             if (it != m_filename_map.end()) {
                 return it->second;
             }
-        } else if (dirname == "Music" || dirname == "music") {
+        } else if (dirname == "Music" || dirname == "music" || lower_dirname == "music" || 
+                   lower_dirname.find("music") != std::string::npos || lower_dirname.find("audio") != std::string::npos) {
+            // Use musical note for music folders - check if we have a better icon
             auto it = m_filename_map.find("Music");
             if (it != m_filename_map.end()) {
                 return it->second;
             }
-        } else if (dirname == "Pictures" || dirname == "pictures") {
+            // Fallback to standard musical note
+            return {"\ufb2c", "\033[38;2;255;100;150m"};
+        } else if (dirname == "Pictures" || dirname == "pictures" || lower_dirname == "pictures" ||
+                   lower_dirname.find("picture") != std::string::npos || lower_dirname.find("photo") != std::string::npos) {
             auto it = m_filename_map.find("Pictures");
             if (it != m_filename_map.end()) {
                 return it->second;
             }
-        } else if (dirname == "Videos" || dirname == "videos") {
+        } else if (dirname == "Videos" || dirname == "videos" || lower_dirname == "videos" ||
+                   lower_dirname.find("video") != std::string::npos || lower_dirname.find("movie") != std::string::npos) {
             auto it = m_filename_map.find("Videos");
             if (it != m_filename_map.end()) {
                 return it->second;
             }
-        } else if (dirname == "Public" || dirname == "public") {
+        } else if (dirname == "Public" || dirname == "public" || lower_dirname == "public") {
             auto it = m_filename_map.find("Public");
             if (it != m_filename_map.end()) {
                 return it->second;
             }
-        } else if (dirname == "Templates" || dirname == "templates") {
+        } else if (dirname == "Templates" || dirname == "templates" || lower_dirname == "templates") {
             auto it = m_filename_map.find("Templates");
             if (it != m_filename_map.end()) {
                 return it->second;
@@ -663,6 +681,8 @@ bool IconProvider::isAudio(const std::string& extension) const {
         ".mp3", ".wav", ".flac", ".ogg", ".aac", ".m4a", ".wma", ".opus", ".m3u", ".m3u8", ".pls"
     };
     return audio_extensions.count(extension) > 0;
+}
+
 }
 
 bool IconProvider::isVideo(const std::string& extension) const {
