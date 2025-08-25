@@ -478,7 +478,7 @@ std::string IconProvider::getIcon(const FileInfo& file) const {
 
 std::string IconProvider::getColorCode(const FileInfo& file) const {
     auto [icon, color] = getIconAndColor(file);
-}
+
 
     return m_color_enabled ? color : "";
 }
@@ -681,8 +681,6 @@ bool IconProvider::isAudio(const std::string& extension) const {
         ".mp3", ".wav", ".flac", ".ogg", ".aac", ".m4a", ".wma", ".opus", ".m3u", ".m3u8", ".pls"
     };
     return audio_extensions.count(extension) > 0;
-}
-
 }
 
 bool IconProvider::isVideo(const std::string& extension) const {
