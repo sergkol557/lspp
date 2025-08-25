@@ -60,4 +60,5 @@ private:
     bool isCode(const std::string& extension) const;
     bool isConfig(const std::string& extension) const;
     bool isDatabase(const std::string& extension) const;
+    bool isFont(const std::string& extension) const;
 };
