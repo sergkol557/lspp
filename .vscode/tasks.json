@@ -139,6 +139,95 @@
             },
             "problemMatcher": [],
             "detail": "Test the ls++ application by showing its version"
+        },
+        {
+            "label": "Compile Test",
+            "type": "shell",
+            "command": "./compile_test.sh",
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "detail": "Run the compile test script to manually compile all source files"
+        },
+        {
+            "label": "Icon Test",
+            "type": "shell",
+            "command": "./icon_test.sh",
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "detail": "Test Unicode icon display in the terminal"
+        },
+        {
+            "label": "Test Combined Flags",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++20",
+                "test_combined_flags.cpp",
+                "src/ArgumentParser.cpp",
+                "-Isrc",
+                "-o",
+                "test_combined_flags",
+                "&&",
+                "./test_combined_flags"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "detail": "Build and run the combined flags test"
+        },
+        {
+            "label": "Test Music Icon",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++20",
+                "test_music_icon.cpp",
+                "src/IconProvider.cpp",
+                "src/FileOperations.cpp",
+                "-Isrc",
+                "-o",
+                "test_music_icon",
+                "&&",
+                "./test_music_icon"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "detail": "Build and run the music icon test"
         }
     ]
 }
