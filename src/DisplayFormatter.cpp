@@ -595,9 +595,24 @@ int DisplayFormatter::getTerminalWidth() {
 }
 
 size_t DisplayFormatter::getDisplayWidth(const std::string& str) {
+    // First, remove ANSI escape sequences
+    std::string clean_str = str;
+    size_t pos = 0;
+    while ((pos = clean_str.find("\033[", pos)) != std::string::npos) {
+        size_t end_pos = clean_str.find('m', pos);
+        if (end_pos != std::string::npos) {
+            clean_str.erase(pos, end_pos - pos + 1);
+        } else {
+            // If we can't find the end of the escape sequence, remove everything from pos to the end
+            clean_str.erase(pos);
+            break;
+        }
+    }
+    
+    // Now calculate the width of the cleaned string
     size_t width = 0;
-    const char* ptr = str.c_str();
-    size_t remaining = str.size();
+    const char* ptr = clean_str.c_str();
+    size_t remaining = clean_str.size();
     std::mbstate_t state = std::mbstate_t();
     
     while (remaining > 0) {
