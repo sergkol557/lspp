@@ -217,36 +217,52 @@ void FileOperations::sortFiles(std::vector<FileInfo>& files, const LsOptions& op
         return;
     }
     
-    // Group directories first if requested
-    if (options.group_directories_first) {
-        std::stable_sort(files.begin(), files.end(), [](const FileInfo& a, const FileInfo& b) {
-            if (a.is_directory != b.is_directory) {
-                return a.is_directory > b.is_directory;
-            }
-            return false;
-        });
-    }
-    
     // Primary sort
     switch (options.sort_order) {
         case SortOrder::NAME:
             std::sort(files.begin(), files.end(), [&](const FileInfo& a, const FileInfo& b) {
+                // If group_directories_first is set, directories should come first
+                if (options.group_directories_first && a.is_directory != b.is_directory) {
+                    return a.is_directory > b.is_directory;
+                }
                 return compareByName(a, b, options.ignore_case);
             });
             break;
         case SortOrder::TIME:
             std::sort(files.begin(), files.end(), [&](const FileInfo& a, const FileInfo& b) {
+                // If group_directories_first is set, directories should come first
+                if (options.group_directories_first && a.is_directory != b.is_directory) {
+                    return a.is_directory > b.is_directory;
+                }
                 return compareByTime(a, b, options.time_type);
             });
             break;
         case SortOrder::SIZE:
-            std::sort(files.begin(), files.end(), compareBySize);
+            std::sort(files.begin(), files.end(), [&](const FileInfo& a, const FileInfo& b) {
+                // If group_directories_first is set, directories should come first
+                if (options.group_directories_first && a.is_directory != b.is_directory) {
+                    return a.is_directory > b.is_directory;
+                }
+                return compareBySize(a, b);
+            });
             break;
         case SortOrder::EXTENSION:
-            std::sort(files.begin(), files.end(), compareByExtension);
+            std::sort(files.begin(), files.end(), [&](const FileInfo& a, const FileInfo& b) {
+                // If group_directories_first is set, directories should come first
+                if (options.group_directories_first && a.is_directory != b.is_directory) {
+                    return a.is_directory > b.is_directory;
+                }
+                return compareByExtension(a, b);
+            });
             break;
         case SortOrder::VERSION:
-            std::sort(files.begin(), files.end(), compareByVersion);
+            std::sort(files.begin(), files.end(), [&](const FileInfo& a, const FileInfo& b) {
+                // If group_directories_first is set, directories should come first
+                if (options.group_directories_first && a.is_directory != b.is_directory) {
+                    return a.is_directory > b.is_directory;
+                }
+                return compareByVersion(a, b);
+            });
             break;
         case SortOrder::NONE:
             break;
